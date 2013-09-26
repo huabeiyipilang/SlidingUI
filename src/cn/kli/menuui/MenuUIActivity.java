@@ -57,6 +57,7 @@ public class MenuUIActivity extends SherlockActivity  implements OnClickListener
 		mMenuView.setAdapter(new GroupListAdapter());
 		mMenuView.setOnItemClickListener(this);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true); 
+		translateToFragment(mConfig.getModuleList().get(0));
 	}
 	
 	
@@ -80,16 +81,19 @@ public class MenuUIActivity extends SherlockActivity  implements OnClickListener
 	public void onItemClick(AdapterView<?> arg0, View arg1, final int pos,
 			long arg3) {
 		mDrawLayout.closeDrawer(mMenuView);
-		translateToFragment(mConfig.getModuleList().get(pos).cls.getName());
+		translateToFragment(mConfig.getModuleList().get(pos));
 	}
 
-	private void translateToFragment(final String to) {
+	private void translateToFragment(final Module module) {
+		if(module == null){
+			return;
+		}
 		new Thread(){
 			@Override
 			public void run() {
 				super.run();
 				FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-				tx.replace(R.id.fl_main, Fragment.instantiate(MenuUIActivity.this, to));
+				tx.replace(R.id.fl_main, Fragment.instantiate(MenuUIActivity.this, module.cls.getName()));
 				tx.commit();
 			}
 		}.start();
@@ -141,6 +145,7 @@ public class MenuUIActivity extends SherlockActivity  implements OnClickListener
 		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 	}
 
+	/*
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
@@ -151,7 +156,7 @@ public class MenuUIActivity extends SherlockActivity  implements OnClickListener
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
+	*/
 	
 	
 }
