@@ -4,10 +4,10 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +25,7 @@ public class MenuUIActivity extends SherlockActivity  implements OnClickListener
 	private ListView mMenuView;
 	private DrawerLayout mDrawLayout;
 	private Config mConfig;
+	private Handler mHandler = new Handler();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,18 +86,20 @@ public class MenuUIActivity extends SherlockActivity  implements OnClickListener
 	}
 
 	private void translateToFragment(final Module module) {
-		if(module == null){
+		if (module == null) {
 			return;
 		}
-		new Thread(){
+		mHandler.postDelayed(new Runnable(){
+
 			@Override
 			public void run() {
-				super.run();
 				FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-				tx.replace(R.id.fl_main, Fragment.instantiate(MenuUIActivity.this, module.cls.getName()));
+				tx.replace(R.id.fl_main,
+						Fragment.instantiate(MenuUIActivity.this, module.cls.getName()));
 				tx.commit();
 			}
-		}.start();
+			
+		}, 500);
 	}
 	
 	private class GroupListAdapter extends BaseAdapter{
