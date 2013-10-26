@@ -2,7 +2,7 @@ package cn.kli.menuui;
 
 
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,7 +19,7 @@ public class BaseModuleFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		((SherlockActivity) getActivity()).getSupportActionBar().setTitle(
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().setTitle(
 				mConfig.getGroupByClassName(this.getClass().getName()).name);
 	}
 	

@@ -18,10 +18,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-public class MenuUIActivity extends SherlockActivity  implements OnClickListener, OnItemClickListener {
+public class MenuUIActivity extends SherlockFragmentActivity  implements OnClickListener, OnItemClickListener {
 	private ListView mMenuView;
 	private DrawerLayout mDrawLayout;
 	private Config mConfig;
