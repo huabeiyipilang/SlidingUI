@@ -1,13 +1,10 @@
 package cn.kli.menuui;
 
-
-
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
-public class BaseModuleFragment extends Fragment {
+public class BaseModuleFragment extends BaseFragment {
 	private Config mConfig;
 
 	@Override

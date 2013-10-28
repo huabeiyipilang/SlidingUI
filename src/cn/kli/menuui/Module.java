@@ -1,7 +1,7 @@
 package cn.kli.menuui;
 
 public class Module {
-	public int name;
+	public String name;
 	public Class<?> cls;
-
+	public int icon;
 }

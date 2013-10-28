@@ -4,9 +4,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +15,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-public class MenuUIActivity extends SherlockFragmentActivity  implements OnClickListener, OnItemClickListener {
+public class MenuUIActivity extends BaseActivity  implements OnClickListener, OnItemClickListener {
 	private ListView mMenuView;
 	private DrawerLayout mDrawLayout;
 	private Config mConfig;
-	private Handler mHandler = new Handler();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +53,10 @@ public class MenuUIActivity extends SherlockFragmentActivity  implements OnClick
 		mMenuView.setAdapter(new GroupListAdapter());
 		mMenuView.setOnItemClickListener(this);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true); 
-		translateToFragment(mConfig.getModuleList().get(0));
+		try {
+			translateToFragment(mConfig.getModuleList().get(0).cls.getName());
+		} catch (Exception e) {
+		}
 	}
 	
 	
@@ -82,26 +80,9 @@ public class MenuUIActivity extends SherlockFragmentActivity  implements OnClick
 	public void onItemClick(AdapterView<?> arg0, View arg1, final int pos,
 			long arg3) {
 		mDrawLayout.closeDrawer(mMenuView);
-		translateToFragment(mConfig.getModuleList().get(pos));
+		translateToFragment(mConfig.getModuleList().get(pos).cls.getName());
 	}
 
-	private void translateToFragment(final Module module) {
-		if (module == null) {
-			return;
-		}
-		mHandler.postDelayed(new Runnable(){
-
-			@Override
-			public void run() {
-				FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-				tx.replace(R.id.fl_main,
-						Fragment.instantiate(MenuUIActivity.this, module.cls.getName()));
-				tx.commit();
-			}
-			
-		}, 500);
-	}
-	
 	private class GroupListAdapter extends BaseAdapter{
 		
 		List<Module> modules = mConfig.getModuleList();
@@ -126,7 +107,7 @@ public class MenuUIActivity extends SherlockFragmentActivity  implements OnClick
 			ViewHolder holder = null;
 			if(convertView == null){
 				LayoutInflater inflater = MenuUIActivity.this.getLayoutInflater();
-				convertView = inflater.inflate(R.layout.group_list_item, null);
+				convertView = inflater.inflate(R.layout.menu_item, null);
 				holder = new ViewHolder();
 				holder.title = (TextView)convertView.findViewById(R.id.tv_title);
 				convertView.setTag(holder);
