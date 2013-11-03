@@ -5,6 +5,8 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -129,18 +131,21 @@ public class MenuUIActivity extends BaseActivity  implements OnClickListener, On
 		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 	}
 
-	/*
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
+
 			if(!mDrawLayout.isDrawerOpen(mMenuView)){
 				mDrawLayout.openDrawer(mMenuView);
+				return true;
+			}else{
+				finish();
 				return true;
 			}
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	*/
+	
 	
 	
 }

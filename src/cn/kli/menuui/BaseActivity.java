@@ -4,6 +4,7 @@ import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
