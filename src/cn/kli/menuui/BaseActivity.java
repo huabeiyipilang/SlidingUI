@@ -22,9 +22,12 @@ public class BaseActivity extends SherlockFragmentActivity {
 				super.run();
 				Looper.prepare();
 				FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-				mCurrentFragment = (BaseFragment)Fragment.instantiate(BaseActivity.this, clsName);
-				tx.replace(R.id.fl_main, mCurrentFragment);
-				tx.commit();
+				BaseFragment newFragment = (BaseFragment)Fragment.instantiate(BaseActivity.this, clsName);
+				if(mCurrentFragment == null || !newFragment.getClass().getName().equals(mCurrentFragment.getClass().getName())){
+					mCurrentFragment = newFragment;
+					tx.replace(R.id.fl_main, mCurrentFragment);
+					tx.commit();
+				}
 			}
 			
 		}.start();
